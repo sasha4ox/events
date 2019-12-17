@@ -2,6 +2,7 @@ if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
   alert('The File APIs are not fully supported in this browser.');
 }
 const tableEl = document.querySelector('#table tbody');
+const table = document.getElementById('table');
 console.log(tableEl);
 function creationTr(innerText, el) {
   let trEl = document.createElement('td');
@@ -24,6 +25,50 @@ function render(arr) {
 }
 function getObj(arr) {
   render(arr);
+  table.addEventListener('click', function(e) {
+    if (e.target.innerText === 'Train number') {
+      console.log('ok');
+      let newArr = arr.sort(function(a, b) {
+        let aNumber = a.number.slice(0, -1);
+
+        let bNumber = b.number.slice(0, -1);
+        return aNumber - bNumber;
+      });
+      console.log(arr[0]);
+      console.log(newArr);
+      render(newArr);
+    } else if (e.target.innerText === 'City Departing') {
+      let newArr = arr.sort(function(a, b) {
+        let city1 = a.departingCity.toLowerCase();
+        let city2 = b.departingCity.toLowerCase();
+        if (city1 < city2) return -1;
+        if (city1 > city2) return 1;
+        return 0;
+      });
+      render(newArr);
+    } else if (e.target.innerText === 'City Arriving') {
+      let newArr = arr.sort(function(a, b) {
+        let city1 = a.ArrivingCity.toLowerCase();
+        let city2 = b.ArrivingCity.toLowerCase();
+        if (city1 < city2) return -1;
+        if (city1 > city2) return 1;
+        return 0;
+      });
+      render(newArr);
+    } else if (e.target.innerText === 'Deprting Day') {
+      let counter = 0;
+      let newArr = arr.sort(function(a, b) {
+        let city1 = a.ArrivingCity.toLowerCase();
+        let city2 = b.ArrivingCity.toLowerCase();
+        if (city1 < city2) return -1;
+        if (city1 > city2) return 1;
+        return 0;
+      });
+      render(newArr);
+      counter++;
+      console.log(counter);
+    }
+  });
 }
 //
 
